@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="apple-wap-web-app-capable" content="yes"/>
+    <meta name="apple-wap-web-app-status-bar-style" content="black-translucent"/>
+    <title>车务查询系统</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/css/html/index.css}" rel="stylesheet"/>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+
+            <div class="panel panel-default" style="margin-top: 10px;">
+                <div class="panel-body">
+                    最近查询:
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-info">粤4324E</button>
+                </div>
+            </div>
+            <form class="bs-example bs-example-form" role="form" style="background-color: #F0F0F0">
+                <div class="input-group">
+                    <span class="input-group-addon">车牌号码</span>
+                    <input type="text" class="form-control" placeholder="请输入车牌号码" value="粤">
+
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">车辆类型</span>
+                    <select class="form-control" style="padding-left: 10px;">
+                        <option>
+                            小型汽车
+                        </option>
+                        <option>
+                            A1大型客车
+                        </option>
+                        <option>
+                            A2牵引货车
+                        </option>
+                        <option>
+                            B1中型客车
+                        </option>
+                        <option>
+                            B2大型货车
+                        </option>
+                        <option>
+                            教练车
+                        </option>
+                    </select>
+
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">车架号码</span>
+                    <input type="text" class="form-control" placeholder="请输入车架号后6位">
+
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">发动机号</span>
+                    <input type="text" class="form-control" placeholder="请输入发动机号6位">
+
+                </div>
+
+            </form>
+            <br>
+            <button type="button"  class="btn btn-primary btn-lg btn-block" >提交查询</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

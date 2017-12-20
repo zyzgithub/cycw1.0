@@ -1,0 +1,150 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="apple-wap-web-app-capable" content="yes"/>
+    <meta name="apple-wap-web-app-status-bar-style" content="black-translucent"/>
+    <title></title>
+</head>
+<body>
+<!-------start------->
+<div data-ng-controller="orderCtrl" data-ng-init="loadData()" style="margin: 0px;padding: 0px;">
+    <div class="panel panel-primary ">
+        <div class="panel-body btn-info" style="text-align: center;">
+            <span style="font-size: 18px;">{{carDo.plateNum}}</span>&nbsp;&nbsp;<span>小型汽车</span>
+            <hr/>
+            <span>车架号:&nbsp;&nbsp;{{carDo.vin}}&nbsp;&nbsp;发动机号:&nbsp;&nbsp;{{carDo.engine}} </span>
+            <hr/>
+            <span>已使用&nbsp;&nbsp;{{num}}&nbsp;&nbsp;个驾证,&nbsp;&nbsp;已扣&nbsp;&nbsp;{{score}}&nbsp;&nbsp;分&nbsp;&nbsp;(仅供参考)</span>
+            <hr/>
+            <span>
+                         <div class="row clearfix">
+                         <span class="col-xs-4 column" style="border-right:solid 1px;">违章</span>
+                         <span class="col-xs-4 column" style="border-right:solid 1px;">罚款</span>
+                         <span class="col-xs-4 column">扣分</span>
+                         </div>
+                        <div class="row clearfix">
+                         <span class="col-xs-4 column" style="border-right:solid 1px;">{{shownum}}</span>
+                         <span class="col-xs-4 column" style="border-right:solid 1px;">{{showfine}}</span>
+                         <span class="col-xs-4 column">{{showscore}}</span>
+                         </div>
+                    </span>
+            <!--<pre>{{selected|json}}</pre>-->
+            <!--<pre>{{selectedTags|json}}</pre>-->
+        </div>
+    </div>
+    <!--查询提交表单-->
+    <form class="bs-example bs-example-form" role="form" id="change" value=""
+          style="margin-bottom: 25px;display: none;">
+        <div class="input-group">
+            <span class="input-group-addon">车主姓名</span>
+            <input type="text" class="form-control" placeholder="请输入车主姓名">
+
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">车主手机</span>
+            <input type="text" class="form-control" placeholder="请输入车主手机">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">驾驶证号</span>
+            <input type="text" class="form-control" placeholder="请输入车主驾驶证号">
+
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">档案编号</span>
+            <input type="text" class="form-control" placeholder="请输入车主档案编号">
+
+        </div>
+
+    </form>
+    <div>
+        <div style="margin-top:-10px;" class="panel panel-primary" ng-repeat="order in orderList.datas track by $index">
+            <div class="panel-body">
+
+                <!--<div style="color: #9d9d9d">-->
+                    <!--<span><input type="checkbox" style="width: 2rem;height: 2rem;"/></span>-->
+                <!--</div>-->
+                <div class="input-group" style="background-color:#fff;width: 100%;">
+
+                    <input type="checkbox"
+                           id={{order.notificationNumber}} name="{{order}}"
+                           ng-click="updateSelection($event,$index)"
+                           class="form-control" style="height: 2rem;width:10%;border-radius:0px;"/>
+                    <span class="form-control" style="width:90%;border: 0px;">{{order.violationTime}}</span>
+                </div>
+
+
+                <div style="text-align: center">
+                    <div class="row clearfix">
+
+                        <div class="col-xs-3 column">
+                            扣分
+                        </div>
+                        <div class="col-xs-3 column">
+                            罚款金
+                        </div>
+                        <div class="col-xs-3 column">
+                            滞纳金
+                        </div>
+                        <div class="col-xs-3 column">
+                            服务费
+                        </div>
+                    </div>
+                    <div class="row clearfix" style="color: #00a5e0;">
+                        <div class="col-xs-3 column">
+                            {{order.violationPoints}}
+                        </div>
+                        <div class="col-xs-3 column">
+                            {{order.fine}}
+                        </div>
+                        <div class="col-xs-3 column">
+                            0
+
+                        </div>
+                        <div class="col-xs-3 column">
+                            12
+
+                        </div>
+                    </div>
+
+                </div>
+                <span><img src="img/vehicle/事件原因.png">&nbsp;&nbsp;<span style="color: #9d9d9d;">{{order.violationBehavior}}</span></span>
+                <hr>
+                <span><img src="img/vehicle/地点.png">&nbsp;&nbsp;<span style="color: #9d9d9d;">{{order.violationLocation}}</span></span>
+                <hr>
+            </div>
+
+        </div>
+    </div>
+
+    <!-------end------->
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="navbar-inner navbar-content-center">
+                <a style="height: 2.5rem;" class="btn btn-danger btn-xs btn-block" id="changeManager" ng-click="changeManager();" href="#/order">点击切换到本人驾驶扣分办理</a>
+                <div class="input-group" style="background-color:#fff;width: 100%;height: 2rem;">
+
+                    <input type="checkbox"
+                           name="{{orderList.datas}}"
+                           ng-click="updateSelectionAll($event,orderList.datas)"
+                           class="form-control" style="height: 2rem;width:10%;margin-left: 15px;border-radius:0px;" />
+                           <span class="form-control" style="width: 20%;border: 0px;padding-left: 0px;">全选</span>
+                           <div class="form-control"  style="width: 60%;padding: 0px;border: 0px;">
+                               <div style="float: left;width: 100%;height: 50%;">共需支付:￥<span style="color: red;">{{money}}</span>元</div>
+                               <div style="float: left;color: #9d9d9d;font-size: 12px;">已选{{num}}笔,扣{{score}}分</div>
+                           </div>
+                    <span class="input-group-addon" style="border: solid 0px;padding: 0px;">
+                      <a style="" type="button" class="btn btn-info" ng-click="saveOrder();">马上办理</a>
+
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+>
+<head id="Head1">
+    <script th:src="@{/js/jquery.js}"></script>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <script th:src="@{/js/layer.js}"></script>
+    <script src="http://cdn.bootcss.com/vue/2.1.8/vue.min.js" type='text/javascript'></script>
+    <style type="text/css">[v-cloak] {
+        display: block;
+    }</style>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/date.js}"></script>
+    <script type="text/javascript">
+        var _LoadingWindow = null;
+        function OpenLoadingWindow(_time) {
+            if (_time == undefined)
+                _time = 0;
+            //_LoadingWindow = layer.open({ type: 2, time: _time });
+            _LoadingWindow = layer.msg('加载中', {icon: 16, shade: [0.3, '#000'], time: _time});
+        }
+        function CloseLoadingWindow() {
+            layer.close(_LoadingWindow);
+        }
+    </script>
+
+    <script type="text/javascript">
+        function OpenLayerMsg(_msg) {
+            //layer.open({
+            //    content: _msg,
+            //    skin: 'msg',
+            //    time: 3 //3秒后自动关闭
+            //});
+            layer.msg(_msg, {time: 3000});// icon: 2.5.7
+        }
+    </script>
+    <script th:src="@{/js/accordion.js}"></script>
+    <link th:href="@{/css/accordion.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom.css}" rel="stylesheet"/>
+    <script th:src="@{/js/banner.js}"></script>
+    <script th:src="@{/js/seleteTime/1.js}" type="text/javascript"></script>
+    <script th:src="@{/js/seleteTime/2.js}" type="text/javascript"></script>
+    <script th:src="@{/js/seleteTime/3.js}" type="text/javascript"></script>
+    <script th:src="@{/js/seleteTime/4.js}" type="text/javascript"></script>
+    <script th:src="@{/js/seleteTime/5.js}" type="text/javascript"></script>
+    <script th:src="@{/js/main.js.js}" type="text/javascript"></script>
+    <script th:src="@{/js/angularjs/angular.js}" type="text/javascript"></script>
+    <script th:src="@{/js/angularjs/select.js}" type="text/javascript"></script>
+    <link th:href="@{/css/seleteTime/1.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/seleteTime/2.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/seleteTime/3.css}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        $(function () {
+            var currYear = (new Date()).getFullYear();
+            var opt = {};
+            opt.date = {preset: 'date'};
+            opt.datetime = {preset: 'datetime'};
+            opt.time = {preset: 'time'};
+            opt.default = {
+                theme: 'android-ics light', //皮肤样式
+                display: 'modal', //显示方式
+                mode: 'scroller', //日期选择模式
+                dateFormat: 'yyyy-mm-dd',
+                lang: 'zh',
+                showNow: true,
+                nowText: "今天",
+                startYear: currYear - 10, //开始年份
+                endYear: currYear + 10 //结束年份
+            };
+
+            $(".MobileSelectTimeInput").mobiscroll($.extend(opt['date'], opt['default']));
+        });
+    </script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" th:href="@{/css/wxui/frozen.css}"/>
+    <link rel="stylesheet" th:href="@{/css/wxui/layout.css}"/>
+    <title>
+        违章查询办理
+    </title>
+</head>
+<body ng-controller="mainCtrl">
+
+<div id="vueapp" v-cloak>
+    <!--查询框-->
+    <section class="ui-container">
+        <div class="cxlast-box ui-border-b">
+            <h3>最近查询</h3>
+            <ul>
+                <li><a href="###">{{item.cphm}}</a></li>
+            </ul>
+        </div>
+        <div class="addcar_form">
+            <div class="sinput_box">
+                <div class="ui-form-item ui-form-item-show ui-form-item-link ui-border-b">
+                    <label>车牌号码</label><input type="text" placeholder="请输入车牌号码" style="text-transform:uppercase;">
+                </div>
+                <div class="ui-form-item ui-border-b">
+                    <label>车辆类型</label>
+                    <div class="ui-select">
+                        <select>
+                            <option>
+                                小型汽车
+                            </option>
+                            <option>
+                                A1大型客车
+                            </option>
+                            <option>
+                                A2牵引货车
+                            </option>
+                            <option>
+                                B1中型客车
+                            </option>
+                            <option>
+                                B2大型货车
+                            </option>
+                            <option>
+                                教练车
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <!--&lt;!&ndash;弹出框:选择公司车私家车&ndash;&gt;-->
+                <!--<div class="px-tcbox" v-if="jtwfqueryData.isSelectClyt">-->
+                <!--<div class="tck-bg"></div>-->
+                <!--<div class="cgs-box">-->
+                <!--<div class="cgs-bt" style="font-size:20px; color:white; position:relative;">-->
+                <!--<a href="#" style="width:16px; height:16px; position:absolute; top: 0px;right: 11px;"><img-->
+                <!--th:src="@{/img/index-close.png}" v-on:click="jtwfqueryData.isSelectClyt=false;"/></a>-->
+                <!--选择车辆归属-->
+                <!--</div>-->
+                <!--<div class="cgs-bc">-->
+                <!--<ul>-->
+                <!--<li><img th:src="@{/img/gscar1.png}"-->
+                <!--v-on:click="jtwfqueryData.clyt=GetEnumValue(Enum_clyt,Enum_clyt.公司车);member_jtwfquery();"/>-->
+                <!--<p>公司车</p></li>-->
+                <!--<li><img th:src="@{/img/gscar2.png}"-->
+                <!--v-on:click="jtwfqueryData.clyt=GetEnumValue(Enum_clyt,Enum_clyt.私人车);member_jtwfquery();"/>-->
+                <!--<p>私人车</p></li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="ui-form-item ui-border-b">
+                    <label>车架号</label>
+                    <input type="text" placeholder="请输入车架号后6位" v-model="jtwfqueryData.cjh">
+                    <a href="#" class="ui-icon-info" onclick="$('.ui-dialog').show();"> </a>
+                </div>
+                <div class="ui-form-item">
+                    <label>发动机号</label>
+                    <input type="text" placeholder="请输入发动机号后6位" v-model="jtwfqueryData.fdjh">
+                    <a href="#" class="ui-icon-info" onclick="$('.ui-dialog').show();"> </a>
+                </div>
+                <!--车架号|发动机号 弹出框-->
+                <div class="demo-block">
+                    <div class="ui-dialog show" style="display: none;" onclick="$('.ui-dialog').hide();">
+                        <div class="ui-dialog-cnt">
+                            <header class="ui-dialog-hd"><img th:src="@{/img/dl-img.png}" class="img100"/>
+                                <i class="ui-dialog-close" data-role="button" onclick="$('.ui-dialog').hide();"></i>
+                            </header>
+                            <div class="ui-dialog-bd"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--车架号|发动机号 弹出框结束-->
+            </div>
+            <div class="ui-form-item-checkbox ui-border-t">
+                <label class="ui-checkbox"><input type="checkbox" checked></label>
+                <p>已阅读并同意 <a href="">《授权协议》</a></p>
+            </div>
+            <div class="ui-btn-wrap">
+                <button class="ui-btn-lg ui-btn-primary" ng-click="">查询</button>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="line01"></div>
+            <span>服务特色</span>
+            <ul class="ui-justify ui-whitespace">
+                <li><img th:src="@{/img/zhun.png}"/>
+                    <p>查询准确</p></li>
+                <li><img th:src="@{/img/kuai.png}"/>
+                    <p>快速查缴</p></li>
+                <li><img th:src="@{/img/sheng.png}"/>
+                    <p>办违章省钱</p></li>
+            </ul>
+        </div>
+    </section>
+
+    <!--结果选择-->
+    <div>
+        <div style="line-height:30px;background:rgb(229, 90, 107);color:#fff; font-size:14px; text-align:center; position:fixed; width:100%; left:0px; bottom:46px;z-index:999;">
+            点击切换到本人驾证扣分 最高省0元
+        </div>
+        <div style="line-height:30px;background:rgb(229, 90, 107);color:#fff; font-size:14px; text-align:center; position:fixed; width:100%; left:0px; bottom:46px;z-index:999;">
+            点击切换到本人驾证扣分办理
+        </div>
+        <div style="line-height:30px;background:rgb(229, 150, 90);color:#fff; font-size:14px; text-align:center; position:fixed; width:100%; left:0px; bottom:46px;z-index:999;">
+            切换到普通扣分办理
+        </div>
+        <footer class="ui-footer wz_f">
+            <ul class="ui-list ui-list-text ui-list-checkbox ui-border-b" style="height: 46px;">
+                <li class="ui-border-t">
+                    <label class="ui-checkbox"><input type="checkbox"></label>
+                    <span>全选</span>
+                    <div class="sum_m"> 共计需支付 <span class="ui-txt-red">{{ jtwfquotnData.sumSelected }}</span> 元<p>
+                        已选 {{ jtwfquotnData.jtwfSelected }} 笔，扣 {{ jtwfquotnData.kfSelected }} 分</p></div>
+                    <div class="f_btn"><a href="javascript:;" class="ui-btn ui-btn-lg ui-btn-primary">马上办理</a></div>
+                </li>
+            </ul>
+        </footer>
+        <section class="ui-container" style="border-bottom: 80px solid transparent;display: none;">
+            <div class="swiper-slide" style="height: 168px;">
+                <div class="cinfo-t" style="padding: 10px 0;">
+                    <h3 style="padding-bottom:8px;">{{jtwfquotnData.cphm2}} </h3>
+                    <p style="padding-bottom:8px;">{{jtwfquotnData.cxname}}</p>
+                    已使用<span> {{jtwfquotnData.LicensesUsed}} </span>个驾证，已扣<span> {{jtwfquotnData.ScoresUsed}} </span>分（仅供参考）
+                </div>
+                <div class="cinfo-b">
+                    <ul>
+                        <li class="ui-border-r"><span>{{jtwfquotnData.detailList.length}}</span>违章</li>
+                        <li class="ui-border-r"><span>{{jtwfquotnData.car_fkje}}</span>罚款(元)</li>
+                        <li><span>{{jtwfquotnData.car_kf}}</span>扣分</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sinput_box" style="margin:5px; border-radius: 3px;" v-if="jtwfqueryData.isMyKf==true">
+                <div class="ui-form-item ui-border-b"><label>车主姓名</label> <input type="text" placeholder="车主姓名"
+                                                                                 v-model="jtwfquotnData.ownerName">
+                </div>
+                <div class="ui-form-item ui-border-b"><label>车主手机</label> <input type="text" placeholder="车主手机"
+                                                                                 v-model="jtwfquotnData.ownerMobile">
+                </div>
+                <div class="ui-form-item ui-border-b"><label>驾驶证号</label> <input type="text" placeholder="车主驾驶证号"
+                                                                                 v-model="jtwfquotnData.ownerJszh">
+                </div>
+                <div class="ui-form-item ui-border-b"><label>档案编号</label> <input type="text" placeholder="车主档案编号"
+                                                                                 v-model="jtwfquotnData.ownerDabh">
+                </div>
+            </div>
+
+            <div class="cinfo-tr" onclick="$('.px-tcbox').show();">办理偏好：<span>
+                <i class="ui-icon-unfold"></i></span></div>
+            <!--选择办理偏好弹出框-->
+            <div class="px-tcbox show" style="display:none;">
+                <div class="tck-bg"></div>
+                <div class="px-con">
+                    <div class="px-menu">
+                        <ul>
+                            <li class="ui-border-b">
+                                <a href="javascript:;">综合排序</a>
+                            </li>
+                            <li class="ui-border-b">
+                                <a href="javascript:;">价格最优</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">手续最简</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="qx-btn" onclick="$('.px-tcbox').hide();"><a href="javascript:;">取消</a></div>
+                </div>
+            </div>
+
+            <div class="wz_list" v-for="item in jtwfquotnData.detailList">
+                <div class="wz_date">{{ item.wfsj }}</div>
+                <div class="ui-form-item-checkbox">
+                    <label class="ui-checkbox"
+                           v-if="item.quotnDetailStatus==GetEnumValue(Enum_quotnDetailStatus,Enum_quotnDetailStatus.可下单)">
+                        <input type="checkbox"></label>e
+                    <div class="ui-row-flex ui-whitespace">
+                        <div class="ui-col">扣分<p>{{ item.kf }}</p></div>
+                        <div class="ui-col">罚款金额<p>{{ item.fkje }}</p></div>
+                        <div class="ui-col">滞纳金<p>{{ item.znj }}</p></div>
+                        <div class="ui-col">服务费<p>
+                        </p></div>
+                    </div>
+                </div>
+                <div class="all_b">
+                    <ul>
+                        <li class="wzinfo"><img th:src="@{/img/info.png}"/><span>
+                            {{ item.wfms }}</span></li>
+                        <li><img th:src="@{/img/wz.png}"/><span>[{{ item.city }}]{{ item.wfdd }}</span></li>
+                    </ul>
+                </div>
+                <div class="tip ui-border-t">
+                    <label v-if="item.remark!=''"><img th:src="@{/img/wcl.png}">备注：{{ item.remark }}</label><br
+                        v-if="item.remark!=''"/>
+                    <label v-if="getPapersName(item.papers)!=''">（需要上传证件：{{ getPapersName(item.papers) }}）</label><br
+                        v-if="item.papers!=''"/>
+                    <label v-if="getPostPapersName(item.postPapers)!=''">（需要邮寄证件：{{ getPostPapersName(item.postPapers)
+                        }}）</label>
+                </div>
+                <div class="tip ui-border-t"
+                     v-if="item.quotnDetailStatus==GetEnumValue(Enum_quotnDetailStatus,Enum_quotnDetailStatus.已在本系统下单)">
+                    <img th:src="@{/img/wcl.png}">备注：已在本系统受理
+                </div>
+                <div class="tip ui-border-t"
+                     v-if="item.quotnDetailStatus==GetEnumValue(Enum_quotnDetailStatus,Enum_quotnDetailStatus.违章信息不完整)">
+                    <img th:src="@{/img/wcl.png}">备注：违章信息不完整
+                </div>
+                <div class="tip ui-border-t"
+                     v-if="item.quotnDetailStatus==GetEnumValue(Enum_quotnDetailStatus,Enum_quotnDetailStatus.无报价)">
+                    <img th:src="@{/img/wcl.png}">备注：暂无报价
+                </div>
+                <div class="tip ui-border-t">
+                    <img th:src="@{/img/wcl.png} ">备注：政策原因无法办理
+                </div>
+                <div class="bj-more">
+                    <a href="javascript:;">其他服务价格<i class="ui-icon-arrow"></i></a></div>
+            </div>
+        </section>
+    </div>
+    <section class="ui-container" v-if="jtwfquotnData.isShowAllQuotn" style="display: none;">
+        <div class="pri-box">
+            <div class="pri-list" v-for="item_detailQuotn in jtwfquotnData.detailQuotnList">
+                <h3 class="ui-border-b"><img th:src="@{/img/picon.png}" width="14"/>其他报价</h3>
+                <ul class="ui-border-b">
+                    <li><span>办理说明：</span></li>
+                    <li><span>所需资料：</span>
+                    </li>
+                    <li><span>服务费：</span><em>￥</em>
+                    </li>
+                </ul>
+                <a href="javascript:;">选择该报价</a>
+            </div>
+        </div>
+    </section>
+    <!--结果确认-->
+    <div v-if="jtwforderData.detailList.length !=0">
+
+        <footer class="ui-footer wz_f">
+            <ul class="ui-list ui-list-text ui-list-checkbox ui-border-b">
+                <li class="ui-border-t">
+                    <div class="sum_m"> 共计需支付 <span class="ui-txt-red">{{ jtwforderData.sumSelected }}</span> 元
+                        <p>已选 {{ jtwforderData.jtwfSelected }} 笔，扣 {{ jtwforderData.kfSelected }} 分</p>
+                    </div>
+                    <div class="f_btn"><a href="javascript:;" class="ui-btn ui-btn-lg ui-btn-primary">立即支付</a></div>
+                </li>
+            </ul>
+        </footer>
+        <section class="ui-container" style="display: none;">
+            <div class="car-tinfo">
+                <dl>
+                    <dt><span>{{jtwforderData.cphm2}}</span>{{jtwforderData.cxname}}</dt>
+                    <dd>已选违章 <span>{{ jtwforderData.jtwfSelected }}</span> 笔，
+                        罚款 <span>{{ jtwforderData.fkjeSelected }}</span> 元，
+                        扣 <span>{{ jtwforderData.kfSelected }}</span> 分，
+                        服务费 <span>{{ jtwforderData.fwfSumSelected }}</span> 元
+                    </dd>
+                    <dd>总计 <span>{{ jtwforderData.sumSelected}}</span> 元</dd>
+                </dl>
+            </div>
+            <div class="sinput_box" style="margin:5px; border-radius: 3px;" v-if="jtwfqueryData.isMyKf==true">
+                <div class="ui-form-item ui-border-b">车主姓名：{{jtwfquotnData.ownerName}}</div>
+                <div class="ui-form-item ui-border-b">车主手机：{{jtwfquotnData.ownerMobile}}</div>
+                <div class="ui-form-item ui-border-b">驾驶证号：{{jtwfquotnData.ownerJszh}}</div>
+                <div class="ui-form-item ui-border-b">档案编号：{{jtwfquotnData.ownerDabh}}</div>
+            </div>
+            <div class="wz-zkbox" v-if="jtwforderData.isShowDetail==false" v-on:click="jtwforderData.isShowDetail=true">
+                <a href="javascript:;"><i class="ui-icon-unfold"></i>查看违章详情</a></div>
+            <div class="wz-zkbox" v-if="jtwforderData.isShowDetail==true" v-on:click="jtwforderData.isShowDetail=false">
+                <a href="javascript:;"><i class="ui-icon-unfold"></i>关闭违章详情</a></div>
+            <div class="wz_list" v-if="jtwforderData.isShowDetail" v-for="item in jtwforderData.detailList">
+                <div class="order_date ui-border-b">下单时间：2017-11-26 02:08:04></div>
+                <div class="order-con">
+                    <div class="ui-row-flex ui-whitespace">
+                        <div class="ui-col">扣分<p>{{ item.kf }}</p></div>
+                        <div class="ui-col">罚款金额<p>{{ item.fkje }}</p></div>
+                        <div class="ui-col">滞纳金<p>{{ item.znj }}</p></div>
+                        <div class="ui-col">服务费<p>{{ item.fwfSum }}</p></div>
+                    </div>
+                </div>
+                <div class="all_b">
+                    <ul>
+                        <li><img th:src="@{/img/time.png}"/><span>{{ item.wfsj }}</span></li>
+                        <li class="wzinfo"><img th:src="@{/img/info.png}"/><span>{{ item.wfms }}</span></li>
+                        <li><img th:src="@{/img/wz.png}"/><span>{{ item.wfdd }}</span></li>
+                    </ul>
+                </div>
+                <div class="tip ui-border-t"
+                     v-if="$.trim(item.remark)!=''||$.trim(item.papers)!=''||$.trim(item.postPapers)!=''">
+                    <img th:src="@{/img/wcl.png}">备注：{{ item.remark }}
+                    <label v-if="$.trim(item.papers)!=''">（需要上传证件：{{ getPapersName(item.papers) }}）</label>
+                    <label v-if="$.trim(item.postPapers)!=''">（需要邮寄证件：{{ getPostPapersName(item.postPapers) }}）</label>
+                </div>
+            </div>
+            <div class="buylist">
+                <h5>选择支付方式：</h5>
+                <div class="ui-form ui-border-t">
+                    <ul class="ui-list ui-list-text ui-list-radio ui-border-tb">
+
+
+                        <li class="ui-border-t" v-for="item in FinPayOperaterPaymentList">
+                            <label class="ui-checkbox" style="display:block;width: 100%;">
+                                <input type="radio" style="float:right; margin-top:22px;">
+                                <img v-bind:src="'http://www.izhongkai.cn/UI/payway'+item.payType+'.jpg'">
+                            </label>
+                        </li>
+                        <li class="ui-border-t">
+                            <label class="ui-checkbox" style="display:block;width: 100%;"
+                                   v-on:click="jtwforderpayData.paymentID = 0;jtwforderpayData.payWorkType = GetEnumValue(Enum_fin_payWorkType,Enum_fin_payWorkType.余额支付密码验证);"
+                            >
+                                <input type="radio" style="float:right; margin-top:22px;"
+                                       v-bind:value="0"
+                                       v-model="jtwforderpayData.paymentID"
+                                >
+                                <img v-bind:src="'http://www.izhongkai.cn/UI/payway1.jpg'">
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="buylist" v-if="jtwforderpayData.paymentID == 0">
+                <h5>当前余额：<span class="color-g">{{jtwforderpayData.fund}} 元</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                    本次支付：<span class="color-y">{{ jtwforderData.sumSelected }} 元</span></h5>
+                <div class="sinput_box">
+                    <div class="ui-form-item ui-border-tb">
+                        <label for="#">钱包密码</label><input type="password" v-model="jtwforderpayData.payPassword"
+                                                          placeholder="请输入钱包密码">
+                    </div>
+                </div>
+                <h5>还没设置钱包密码吗？<a href="member_paypassword" class="color-y">立即设置</a></h5>
+            </div>
+        </section>
+    </div>
+    <!--二维码支付-->
+    <div id="CustomWindow_pay" class="CustomWindow">
+        <div class="CustomWindow_bg"></div>
+        <div class="CustomWindow_content CustomWindowUI_modal" style="width:300px;height:340px;border-radius: 5px;">
+            <div class="CustomWindowUI_modal_header" style="border-radius: 5px 5px 0 0;">
+                <span>{{GetEnumName(Enum_fin_payWorkType, jtwforderpayData.payWorkType)}}</span>
+                二维码支付<a href="JavaScript:;" v-on:click="CloseCustomWindow($('#CustomWindow_pay'))"></a>
+            </div>
+            <div class="modal_cz">
+                <p>长按图片【识别二维码】进行支付</p>
+                <img v-if="jtwforderpayData.UrlData!=''"
+                     v-bind:src="'/Pay/WxMakeEqrcode.aspx?data='+jtwforderpayData.UrlData" style="margin:0;"/>
+                <p>本次支付金额：<span style="color:red;">{{ jtwforderData.sumSelected }}</span>元</p>
+            </div>
+        </div>
+    </div>
+    <!--绑定手机号码-->
+    <div id="CustomWindow_login" class="CustomWindow">
+        <div class="CustomWindow_bg"></div>
+        <div class="CustomWindow_content CustomWindowUI_modal" style="width:90%;height:165px;border-radius: 5px;">
+            <div class="CustomWindowUI_modal_header" style="border-radius: 5px 5px 0 0;">绑定手机号码<a href="JavaScript:;"
+                                                                                                  v-on:click="CloseCustomWindow($('#CustomWindow_login'))"></a>
+            </div>
+            <div class="addcar_form ui-border-t">
+                <div class="sinput_box">
+                    <div class="ui-form-item ui-border-b">
+                        <label>手机号码</label>
+                        <input type="number" placeholder="请输入手机号码" v-model="setmobileData.mobile">
+                    </div>
+
+                    <div class="ui-form-item ui-border-b yzm">
+                        <label for="#">验证码</label>
+                        <div class="ui-form-item-r">
+                            <input type="text" placeholder="请输入手机验证码" v-model="setmobileData.mobilecode">
+                            <button type="button" class="ui-border-l" v-on:click="member_setmobile_sendmsg()"
+                                    v-if="setmobileData.sendmsgwaittime<=0">获取验证码
+                            </button>
+                            <button type="button" class="ui-border-l" disabled v-else>
+                                {{setmobileData.sendmsgwaittime}}秒后再发送
+                            </button>
+                            <a href="#" class="ui-icon-close" v-if="setmobileData.mobilecode!=''"
+                               v-on:click="setmobileData.mobilecode='';"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-btn-wrap" style="border-radius:0 0 5px 5px;">
+                    <button class="ui-btn-lg ui-btn-primary" v-on:click="member_setmobile()">确认</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $.config = {
+            router: true
+        }
+
+    </script>
+    <!--<script src="/vue/index_controller.js?r=000141"></script>-->
+    <!--<script src="/vue/index_service.js?r=000141"></script>-->
+    <script>
+        //        vueapp = new index_vueapp();
+        //
+        //        //vueapp.mchEmail = "";//mchEmail
+        //        vueapp.MchLogo = "http://www.izhongkai.cn/uploads/temp/Agent/20171109204509_4538.jpg";//logo
+        //        vueapp.MchName = "鼎龙微信公众号";//站名
+        //        vueapp.MchSign = "32bda2a9075f04dc";//mchSign
+        //        vueapp.MchType = "2";//MchType
+        //
+        //        vueapp.mchHotline = "400-808-2388";//客服热线
+
+        //        vueapp.mchAddress = "东莞市常平镇河滨花园恒河楼商铺F1-F3号";//地址
+        //        vueapp.mchQRCode = "http://www.izhongkai.cn/uploads/temp/Agent/20171109204804_9039.jpg";//二维码
+        //        vueapp.mchICP = "";//ICP
+        //        vueapp.mch_meta_keywords = "";//关键字
+        //        vueapp.mch_meta_description = "";//备注
+        //        vueapp.mch_aboutus = "";//关于我们
+        //
+        //        vueapp.mchQQ = "279247303";//QQ
+        //
+        //        vueapp.member_info();//获取当前代理所有角色
+        //
+        //
+        //        vueapp.jtwfquotnData.queryID = "0";
+        //        vueapp.jtwfquotnData.isMyKf = false;
+        //        vueapp.jtwfqueryData.isMyKf = false;
+        //
+        //        if (vueapp.jtwfquotnData.queryID == 0) {
+        //            //我的最近3台车
+        //            vueapp.car_list_Data.pageIndex = 1;
+        //            vueapp.car_list_Data.pageSize = 3;
+        //            vueapp.car_list();//去第一页
+        //        }
+        //
+        //        if ("" != "") {
+        //            vueapp.jtwfqueryData.city = "";
+        //            vueapp.jtwfqueryData.cphm2 = "";
+        //            for (var i = 0; i < vueapp.jtwfqueryData.cphm1List.length; i++) {
+        //                if (vueapp.jtwfqueryData.cphm2.substring(0, 1) == vueapp.jtwfqueryData.cphm1List[i].name) {
+        //                    vueapp.jtwfqueryData.cphm1 = vueapp.jtwfqueryData.cphm1List[i].allname;
+        //                }
+        //            }
+        //            vueapp.jtwfqueryData.cx = "";
+        //            vueapp.jtwfqueryData.cxname = "";
+        //            vueapp.jtwfqueryData.clyt = "0";
+        //            vueapp.jtwfqueryData.clytname = "";
+        //            vueapp.jtwfqueryData.cjh = "";
+        //            vueapp.jtwfqueryData.fdjh = "";
+        //
+        //            vueapp.jtwfquotnData.city = "";
+        //            vueapp.jtwfquotnData.cphm1 = vueapp.jtwfqueryData.cphm1;
+        //            vueapp.jtwfquotnData.cphm2 = "";
+        //            vueapp.jtwfquotnData.cx = "";
+        //            vueapp.jtwfquotnData.cxname = "";
+        //            vueapp.jtwfquotnData.clyt = "0";
+        //            vueapp.jtwfquotnData.clytname = "";
+        //            vueapp.jtwfquotnData.cjh = "";
+        //            vueapp.jtwfquotnData.fdjh = "";
+        //        }
+        //        if (vueapp.jtwfquotnData.queryID != 0) {
+        //            vueapp.jtwfquotn_getdetaillist();//获取违章信息
+        //        }
+        //        vueapp.GetMyFinancePayment();//获取本平台所支持的支付方式列表
+
+    </script>
+</div>
+
+</body>
+</html>

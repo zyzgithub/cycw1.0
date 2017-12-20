@@ -1,0 +1,25 @@
+/*结算*/
+.shop {
+    width: 100%;
+    line-height: 0.6rem;
+    height: 0.6rem;
+    position: fixed;
+    bottom: 0;
+    background: #ffffff;
+    border-radius: 3px;
+    border: none;
+    padding: 0;
+}
+
+/*上1px*/
+.border2 {
+    border-top: 1px solid #e6e6e6
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .border2 {
+        border-top: 0.5px solid #e6e6e6
+    }
+}
+input {outline:none;border: hidden;}
+*:focus { outline: none; }

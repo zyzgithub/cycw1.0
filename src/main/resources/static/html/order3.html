@@ -1,0 +1,195 @@
+
+<div >
+
+    <section class="ui-container" style="border-bottom: 80px solid transparent;">
+        <div class="swiper-slide" style="height: 168px;">
+            <div class="cinfo-t" style="padding: 10px 0;">
+                <h3 style="padding-bottom:8px;">粤2423432 </h3>
+                <p style="padding-bottom:8px;">324324444</p>
+                已使用<span></span>个驾证，已扣<span> </span>分（仅供参考）
+            </div>
+            <div class="cinfo-b">
+                <ul>
+                    <li class="ui-border-r"><span></span>违章</li>
+                    <li class="ui-border-r"><span></span>罚款(元)</li>
+                    <li><span></span>扣分</li>
+                </ul>
+            </div>
+        </div>
+        <div class="sinput_box" style="margin:5px; border-radius: 3px;">
+            <div class="ui-form-item ui-border-b"><label>车主姓名</label> <input type="text" placeholder="车主姓名"
+            >
+            </div>
+            <div class="ui-form-item ui-border-b"><label>车主手机</label> <input type="text" placeholder="车主手机"
+            >
+            </div>
+            <div class="ui-form-item ui-border-b"><label>驾驶证号</label> <input type="text" placeholder="车主驾驶证号"
+            >
+            </div>
+            <div class="ui-form-item ui-border-b"><label>档案编号</label> <input type="text" placeholder="车主档案编号"
+            >
+            </div>
+        </div>
+
+        <div class="cinfo-tr" style="text-align: center"><span >违章资料查询</span></div>
+        <!--选择办理偏好弹出框-->
+        <!--<div class="px-tcbox show" style="display: none;">-->
+            <!--<div class="tck-bg"></div>-->
+            <!--<div class="px-con">-->
+                <!--<div class="px-menu">-->
+                    <!--<ul>-->
+                        <!--<li class="ui-border-b">-->
+                            <!--<a href="javascript:;">综合排序</a>-->
+                        <!--</li>-->
+                        <!--<li class="ui-border-b">-->
+                            <!--<a href="javascript:;">价格最优</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="javascript:;">手续最简</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="qx-btn" onclick="$('.px-tcbox').hide();"><a href="javascript:;">取消</a></div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="wz_list" ng-controller="orderCtrl" data-ng-init="loadData()">
+            <!--<div class="wz_date">时间</div>-->
+            <!--<div class="ui-form-item-checkbox"   ng-cloak class="ng-cloak">-->
+                <!--<label class="ui-checkbox">-->
+                    <!--<input type="checkbox"></label>-->
+                <!--<div class="ui-row-flex ui-whitespace"   ng-repeat="order in orderList track by $index">-->
+                    <!--<div class="ui-col">扣分<p>3</p></div>-->
+                    <!--<div class="ui-col">罚款金额<p>{{order.fine}}</p></div>-->
+                    <!--<div class="ui-col">滞纳金<p>0</p></div>-->
+                    <!--<div class="ui-col">服务费<p>10</p></div>-->
+
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="all_b">-->
+                <!--<ul>-->
+                    <!--<li class="wzinfo"><img src="img/info.png"/><span>-->
+                            <!--{{ item.wfms }}</span></li>-->
+                    <!--<li><img src="img/wz.png"/><span>[{{ item.city }}]{{ item.wfdd }}</span></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="tip ui-border-t">-->
+                <!--<label><img src="img/wcl.png">备注：{{ item.remark }}</label><br-->
+            <!--/>-->
+                <!--<label>（需要上传证件：）</label><br-->
+            <!--/>-->
+                <!--<label>（需要邮寄证件：-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div class="tip ui-border-t"-->
+            <!--&gt;-->
+                <!--<img src="img/wcl.png">备注：已在本系统受理-->
+            <!--</div>-->
+            <!--<div class="tip ui-border-t"-->
+            <!--&gt;-->
+                <!--<img src="img/wcl.png">备注：违章信息不完整-->
+            <!--</div>-->
+            <!--<div class="tip ui-border-t"-->
+            <!--&gt;-->
+                <!--<img src="img/wcl.png">备注：暂无报价-->
+            <!--</div>-->
+            <!--<div class="tip ui-border-t">-->
+                <!--<img src="img/wcl.png} ">备注：政策原因无法办理-->
+            <!--</div>-->
+            <!--<div class="bj-more">-->
+                <!--<a href="javascript:;">其他服务价格<i class="ui-icon-arrow"></i></a></div>-->
+        <!--</div>-->
+    <!--</section>-->
+            <table class="table table-bordered table-hover" ng-cloak class="ng-cloak">
+                <thead>
+                <tr class="success" >
+                    <th><input type="checkbox" id="checkAll" name="checkAll" /></th>
+                    <th>扣分</th>
+                    <th>罚款金额</th>
+                    <th>滞纳金</th>
+                    <th>服务费</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="order in orderList.datas">
+                    <td><input type="checkbox" name="checkItem" /></td>
+                    <td>C00001</td>
+                    <td>{{order.fine}}</td>
+                    <td>机车</td>
+                    <td>有效</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+<!--结果确认-->
+<div v-if="jtwforderData.detailList.length !=0">
+
+    <footer class="ui-footer wz_f">
+        <ul class="ui-list ui-list-text ui-list-checkbox ui-border-b">
+            <li class="ui-border-t">
+                <div class="sum_m"> 共计需支付 <span class="ui-txt-red">{{ jtwforderData.sumSelected }}</span> 元
+                    <p>已选 {{ jtwforderData.jtwfSelected }} 笔，扣 {{ jtwforderData.kfSelected }} 分</p>
+                </div>
+                <div class="f_btn"><a href="javascript:;" class="ui-btn ui-btn-lg ui-btn-primary">立即支付</a></div>
+            </li>
+        </ul>
+    </footer>
+    <section class="ui-container">
+        <div class="car-tinfo">
+            <dl>
+                <dd>已选违章 <span>{{ jtwforderData.jtwfSelected }}</span> 笔，
+                    罚款 <span>{{ jtwforderData.fkjeSelected }}</span> 元，
+                    扣 <span>{{ jtwforderData.kfSelected }}</span> 分，
+                    服务费 <span>{{ jtwforderData.fwfSumSelected }}</span> 元
+                </dd>
+            </dl>
+        </div>
+        <div class="buylist">
+            <h5>选择支付方式：</h5>
+            <div class="ui-form ui-border-t">
+                <ul class="ui-list ui-list-text ui-list-radio ui-border-tb">
+                    <li class="ui-border-t">
+                        <label class="ui-checkbox" style="display:block;width: 100%;">
+                            <input type="radio" name="sb" style="float:right; margin-top:11px;">
+                            <img src="img/wxpay.png" style="height: 23px;"><span>微信</span>
+                        </label>
+                    </li>
+                    <li class="ui-border-t">
+                        <label class="ui-checkbox" style="display:block;width: 100%;">
+                            <input type="radio" name="sb" style="float:right; margin-top: 11px;">
+                            <img src="img/alipay.png" style="height: 23px;"><span>支付宝</span>
+                        </label>
+                    </li>
+                    <li class="ui-border-t">
+                        <label class="ui-checkbox" style="display:block;width: 100%;">
+                            <input type="radio" name="sb" style="float:right; margin-top: 11px;">
+                            <img src="img/balance.png" style="height: 23px;"><span>余额</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="buylist">
+            <h5>当前余额：<span class="color-g">1000元</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                本次支付：<span class="color-y">120 元</span></h5>
+            <div class="sinput_box">
+                <div class="ui-form-item ui-border-tb">
+                    <label>钱包密码</label><input type="password"
+                                              placeholder="请输入钱包密码">
+                </div>
+            </div>
+            <h5>还没设置钱包密码吗？<a href="member_paypassword" class="color-y">立即设置</a></h5>
+        </div>
+    </section>
+</div></section>
+    <div id="footer" class="container">
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="navbar-inner navbar-content-center">
+                <div class="shop border2">
+                    <div id="sum">总计：¥<span id="totalPrice" class="totalPrice"></span></div>
+                    <button type="submit"  id="button" onclick="pay()">支付</button>
+                </div>
+            </div>
+
+        </nav>
+    </div></div>

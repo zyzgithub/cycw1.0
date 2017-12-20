@@ -1,0 +1,344 @@
+@charset "utf-8";
+.CustomWindowUI_modal {
+    width: 520px;
+    padding-bottom: 52px;
+    background-color: #ffffff;
+}
+
+.CustomWindowUI_modal_header {
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color: #009FD9;
+    padding: 0 20px;
+}
+
+.CustomWindowUI_modal_header a {
+    background: url("close.png") no-repeat;
+    width: 12px;
+    height: 12px;
+    float: right;
+    margin-top: 19px;
+}
+
+.CustomWindowUI_modal_body {
+    padding: 20px;
+}
+
+.CustomWindowUI_modal_body dl {
+    overflow: hidden;
+}
+
+.CustomWindowUI_modal_body dt {
+    float: left;
+    width: 100px;
+    height: 52px;
+    line-height: 32px;
+    padding-right: 20px;
+    text-align: right;
+    color: #696d76;
+}
+
+.CustomWindowUI_modal_body dd {
+    float: left;
+    width: 360px;
+    height: 52px;
+}
+
+.CustomWindowUI_modal_body dd.m_textarea {
+    height: 102px;
+}
+
+.CustomWindowUI_modal_body dd input {
+    width: 260px;
+    height: 24px;
+    line-height: 24px;
+    float: left;
+    padding: 3px 10px;
+    color: #9A9A9A;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+}
+
+.CustomWindowUI_modal_body dd textarea {
+    width: 260px;
+    height: 70px;
+    color: #9A9A9A;
+    padding: 5px 10px;
+    border-color: #DDDDDD
+}
+
+.CustomWindowUI_modal_footer {
+    width: 100%;
+    padding: 14px 0;
+    background: #f5f9fa;
+    text-align: right;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.m_submit {
+    width: 78px;
+    height: 32px;
+    line-height: 32px;
+    display: inline-block;
+    border-radius: 3px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 14px;
+    color: #FFF;
+    background-color: #009FD9;
+}
+
+.m_quit {
+    width: 76px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    border-radius: 3px;
+    text-align: center;
+    margin-right: 25px;
+    font-size: 14px;
+    color: #009FD9;
+    background-color: #FFF;
+    border: 1px solid #009FD9;
+}
+
+.modal {
+    width: 520px;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    z-index: 100;
+    background-color: #FFFFFF;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+.modal_bg {
+    background-color: #666;
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+}
+
+.modal_header {
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
+    color: #FFFFFF;
+    background-color: #009FD9;
+    position: relative;
+    padding: 0 15px;
+}
+
+.modal_header a {
+    background: url("../images/close.png") no-repeat left 19px;
+    width: 12px;
+    height: 50px;
+    position: absolute;
+    right: 15px;
+}
+
+.modal_content {
+    padding: 10px;
+}
+
+.modal_footer {
+    width: 100%;
+    padding: 14px 0;
+    background: #f5f9fa;
+    text-align: right;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.btn_tj {
+    width: 78px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 3px;
+    margin-right: 10px;
+    font-size: 14px;
+    color: #FFF;
+    background-color: #009FD9;
+    cursor: pointer;
+}
+
+.btn_tc {
+    width: 76px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 3px;
+    margin-right: 25px;
+    font-size: 14px;
+    color: #009FD9;
+    background-color: #FFF;
+    border: 1px solid #009FD9;
+    cursor: pointer;
+}
+
+.modal1 {
+    width: 700px;
+}
+
+.modal1 .bd_form {
+    padding: 10px 0;
+}
+
+.modal1 .form_group label {
+    width: 90px;
+}
+
+.modal1 .form_info2 a {
+    margin-bottom: 5px;
+}
+
+.modal1 .alist {
+    margin-top: 0;
+}
+
+.modal_cz {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.modal_cz p {
+    color: #656565;
+    font-size: 15px;
+    line-height: 28px;
+}
+
+.modal_cz span {
+    font-weight: bold;
+}
+
+.modal_cz img {
+    width: 240px;
+    height: 240px;
+    margin: 12px 0;
+}
+
+.CustomWindowUI_upload_pic {
+    padding: 5px 24px;
+}
+
+.CustomWindowUI_upload_pic li {
+    float: left;
+    width: 126px;
+    height: 126px;
+    margin: 10px 16px;
+}
+
+.CustomWindowUI_upload_pic li img {
+    width: 100%;
+}
+
+.notice_form {
+    padding: 12px 10px;
+}
+
+.c_input {
+    width: 150px;
+    float: left;
+    margin-left: 8px;
+}
+
+.k_input {
+    width: 280px;
+    float: left;
+    margin-left: 10px;
+}
+
+.input_control {
+    height: 22px;
+    line-height: 22px;
+    vertical-align: middle;
+    display: inline;
+    color: #959595;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    padding: 3px 6px;
+    font-family: "微软雅黑";
+}
+
+.search {
+    position: relative;
+    float: left;
+}
+
+.search_btn {
+    background: url("backstage-icon.png") no-repeat -129px -128px;
+    width: 38px;
+    height: 30px;
+    background-color: #1BACFF;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+}
+
+button {
+    border: 0;
+    font-family: "微软雅黑";
+}
+
+.ntable {
+    width: 100%;
+    color: #666;
+}
+
+.ntable th,
+.ntable td {
+    vertical-align: middle;
+    padding: 10px 12px;
+    line-height: 20px;
+    text-align: left;
+}
+
+.ntable th {
+    background-color: #F3F3F3;
+}
+
+.ntable td {
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.ntable td a {
+    color: #D9780D;
+}
+
+.n_handle {
+    padding: 20px 12px;
+}
+
+.page {
+    color: #1388E5;
+}
+
+.page a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #9A9B9D;
+    background-color: #E2E5EC;
+}
+
+.page a.page_on {
+    background: #35A4FD;
+    color: #FFFFFF;
+}
+

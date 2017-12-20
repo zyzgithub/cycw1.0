@@ -1,0 +1,85 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="apple-wap-web-app-capable" content="yes"/>
+    <meta name="apple-wap-web-app-status-bar-style" content="black-translucent"/>
+    <title></title>
+    <link th:href="@{/css/vehicle/index.css}" rel="stylesheet"/>
+</head>
+<body style="background-color: #9d9d9d;margin: 0px;padding: 0px;">
+
+        <div class="col-md-12 column" style="padding: 0px;">
+
+            <!--最近查询4条显示-->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    最近查询:
+                </div>
+                <div class="panel-footer">
+                    <button type="button" style="margin-bottom: 5px;" class="btn alert-info">粤4324E</button>
+                </div>
+            </div>
+            <!--查询提交表单-->
+            <div ng-controller="mainCtrl">
+            <form  novalidate class="bs-example bs-example-form" role="form" >
+                <div class="input-group">
+                    <span class="input-group-addon">车牌号码</span>
+                    <input type="text" class="form-control" value="" ng-model="carDo.plateNum" ng-init="carDo.plateNum='粤E208J2'" placeholder="请输入车牌号码" >
+
+                </div>
+                <br>
+                <div class="input-group" style="margin-top: -5px;">
+                    <span class="input-group-addon" style="padding-right: 10px;">车辆类型</span>
+                    <select class="form-control" value="" ng-model="carDo.plateType" ng-init="carDo.plateType='02'">
+                        <option value="02">
+                            小型汽车
+                        </option>
+                        <!--<option>-->
+                            <!--A1大型客车-->
+                        <!--</option>-->
+                        <!--<option>-->
+                            <!--A2牵引货车-->
+                        <!--</option>-->
+                        <!--<option>-->
+                            <!--B1中型客车-->
+                        <!--</option>-->
+                        <!--<option>-->
+                            <!--B2大型货车-->
+                        <!--</option>-->
+                        <!--<option>-->
+                            <!--教练车-->
+                        <!--</option>-->
+                    </select>
+                </div>
+                <br>
+                <div class="input-group" style="margin-top: -5px;">
+                    <span class="input-group-addon">车架号码</span>
+                    <input type="text" class="form-control" ng-model="carDo.vin" ng-init="carDo.vin='897586'" value=""  placeholder="请输入车架号后6位">
+
+                </div>
+                <br>
+                <div class="input-group" style="margin-top: -5px;">
+                    <span class="input-group-addon">发动机号</span>
+                    <input type="text" class="form-control" ng-model="carDo.engine" ng-init="carDo.engine='538337'" value=""  placeholder="请输入发动机号后6位">
+                </div>
+            </form>
+                <br>
+                <div class="input-group" style="width: 100%;">
+                    <input type="checkbox" checked="checked " class="form-control" style="height: 2rem;width:10%;margin-left: 15px;border-radius:0px;" />
+                    <a href="javascript:return false;" class="form-control" style="width: 80%;border: 0px;background-color: #F0F0F0;color:#9d9d9d;"><<同意用户授权查询交管数据>></a>
+                </div>
+                <div class="panel-footer" style="background-color:#F0F0F0;border-top:0px; ">
+                    <a class="btn btn-info btn-lg btn-block "
+                       ng-click="saveInfo(carDo)" ui-sref="order({carDo:carDo})">提交查询</a>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<div ng-controller="mainCtrl" ng-cloak class="ng-cloak">
+    <!--查询框-->
+    <section class="ui-container">
+        <div class="cxlast-box ui-border-b">
+            <h3>最近查询</h3>
+            <ul>
+                <li><a href="#/order"></a></li>
+            </ul>
+        </div>
+        <div class="addcar_form">
+            <div class="sinput_box">
+                <div class="ui-form-item ui-form-item-show ui-form-item-link ui-border-b">
+                    <label>车牌号码</label>
+                    <input type="text"  placeholder="请输入车牌号码" >
+                </div>
+                <div class="ui-form-item ui-border-b">
+                    <label>车辆类型</label>
+                    <div class="ui-select">
+                        <select>
+                            <option>
+                                小型汽车
+                            </option>
+                            <option>
+                                A1大型客车
+                            </option>
+                            <option>
+                                A2牵引货车
+                            </option>
+                            <option>
+                                B1中型客车
+                            </option>
+                            <option>
+                                B2大型货车
+                            </option>
+                            <option>
+                                教练车
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <!--&lt;!&ndash;弹出框:选择公司车私家车&ndash;&gt;-->
+                <!--<div class="px-tcbox" v-if="jtwfqueryData.isSelectClyt">-->
+                <!--<div class="tck-bg"></div>-->
+                <!--<div class="cgs-box">-->
+                <!--<div class="cgs-bt" style="font-size:20px; color:white; position:relative;">-->
+                <!--<a href="#" style="wid16px; height:16px; position:absolute; top: 0px;right: 11px;"><img-->
+                <!--src="img/index-close.png" v-on:click="jtwfqueryData.isSelectClyt=false;"/></a>-->
+                <!--选择车辆归属-->
+                <!--</div>-->
+                <!--<div class="cgs-bc">-->
+                <!--<ul>-->
+                <!--<li><img src="img/gscar1.png"-->
+                <!--v-on:click="jtwfqueryData.clyt=GetEnumValue(Enum_clyt,Enum_clyt.公司车);member_jtwfquery();"/>-->
+                <!--<p>公司车</p></li>-->
+                <!--<li><img src="img/gscar2.png"-->
+                <!--v-on:click="jtwfqueryData.clyt=GetEnumValue(Enum_clyt,Enum_clyt.私人车);member_jtwfquery();"/>-->
+                <!--<p>私人车</p></li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="ui-form-item ui-border-b">
+                    <label>车架号</label>
+                    <input type="text" placeholder="请输入车架号后6位" >
+                </div>
+                <div class="ui-form-item">
+                    <label style="vertical-align: middle">发动机号</label>
+                    <input type="text" placeholder="请输入发动机号后6位" >
+                </div>
+                <!--&lt;!&ndash;车架号|发动机号 弹出框&ndash;&gt;-->
+                <!--<div class="demo-block">-->
+                    <!--<div class="ui-dialog show" style="display: none;" onclick="$('.ui-dialog').hide();">-->
+                        <!--<div class="ui-dialog-cnt">-->
+                            <!--<header class="ui-dialog-hd"><img src="img/dl-img.png" class="img100"/>-->
+                                <!--<i class="ui-dialog-close" data-role="button" onclick="$('.ui-dialog').hide();"></i>-->
+                            <!--</header>-->
+                            <!--<div class="ui-dialog-bd"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--车架号|发动机号 弹出框结束-->
+            </div>
+            <div class="ui-form-item-checkbox ui-border-t">
+                <label class="ui-checkbox"><input type="checkbox" checked></label>
+                <p>已阅读并同意 <a href="javascript:return false;">《授权协议》</a></p>
+            </div>
+            <div class="ui-btn-wrap">
+                <a class="ui-btn-lg ui-btn-primary" href="#/order">查询</a>
+                <!--<button class="ui-btn-lg ui-btn-primary"></button>-->
+            </div>
+        </div>
+        <div class="footer">
+            <div class="line01"></div>
+            <span>服务特色</span>
+            <ul class="ui-justify ui-whitespace">
+                <li><img src="img/zhun.png"/>
+                    <p>查询准确</p></li>
+                <li><img src="img/kuai.png"/>
+                    <p>快速查缴</p></li>
+                <li><img src="img/sheng.png"/>
+                    <p>办违章省钱</p></li>
+            </ul>
+        </div>
+    </section>
+</div>
