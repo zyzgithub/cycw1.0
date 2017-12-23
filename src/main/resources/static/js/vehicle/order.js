@@ -11,14 +11,14 @@ bookstoreContrs.controller('orderCtrl', function ($scope, $http, $state, $stateP
     var addOrderInfo = url + "/violation/saveSiteViolation";
     $scope.loadData = function () {
         $http.get(vehicleInfoUrl, {params: {"carDo": carDo}}).success(function (response) {
-            $scope.orderList = response.response;
+            $scope.orderList = response.response.datas;
             $scope.carDo = carDo;
             $scope.showfine = 0;
             $scope.shownum = 0;
             $scope.showscore = 0;
-            $.each($scope.orderList.datas, function (i, order) {
+            $.each($scope.orderList, function (i, order) {
                 $scope.showfine = parseInt($scope.showfine) + parseInt(order.fine);
-                $scope.shownum = $scope.orderList.datas.length;
+                $scope.shownum = $scope.orderList.length;
                 $scope.showscore = parseInt($scope.showscore) + parseInt(order.violationPoints);
             });
         });
@@ -50,31 +50,32 @@ bookstoreContrs.controller('orderCtrl', function ($scope, $http, $state, $stateP
     $scope.num = 0; //选中项
     $scope.score = 0; //当前要扣的分数
     $scope.money = 0; //当前要缴纳的金额
-
-    //checkbox 多选操作数据绑定
-    var updateSelected = function (action, id, name) {
-        if (action == 'add') {
+    var updateSelected = function (action, id,order) {
+        if (action == 'add' )
+        {
+            $("#"+id).prop('checked', true);
             $scope.selected.push(id);
-            $scope.selectedTags.push(name);
-            alert($scope.selectedTags);
+            $scope.selectedTags.push(order);
             $scope.num = $scope.num + 1;
             //转换可解析的对象
             $scope.result = [
-                angular.fromJson(name)
+                angular.fromJson(order)
             ];
             //获取分数
             var score = $scope.result[0].violationPoints;
             var money = $scope.result[0].fine;
             $scope.score = parseInt($scope.score) + parseInt(score);
             $scope.money = parseInt($scope.money) + parseInt(12) + parseInt(money);
-        } else if (action == 'remove') {
-            var idx = $scope.selected.indexOf(id);
-            $scope.selected.splice(idx, 1);
-            $scope.selectedTags.splice(idx, 1);
-            alert($scope.selectedTags);
+        }
+
+        if (action == 'remove')
+        {
+            $("#"+id).attr('checked', false);
+            $scope.selected.splice($scope.selected.indexOf(id), 1);
+            $scope.selectedTags.splice($scope.selected.indexOf(id), 1);
             $scope.num = $scope.num - 1;
             $scope.result = [
-                angular.fromJson(name)
+                angular.fromJson(order)
             ];
             var score = $scope.result[0].violationPoints;
             var money = $scope.result[0].fine;
@@ -82,56 +83,116 @@ bookstoreContrs.controller('orderCtrl', function ($scope, $http, $state, $stateP
             $scope.money = parseInt($scope.money) - parseInt(12) - parseInt(money);
         }
 
-    }
-
-    $scope.updateSelection = function ($event, id) {
+    };
+    //更新某一列数据的选择
+    $scope.updateSelection = function ($event, id,order) {
         var checkbox = $event.target;
         var action = (checkbox.checked ? 'add' : 'remove');
-        alert(id);
-        updateSelected(action, id, checkbox.name);
-    }
+        updateSelected(action, id,order);
+    };
+    //全选操作
+    $scope.selectAll = function ($event) {
+        var checkbox = $event.target;
+        var action = (checkbox.checked ? 'add' : 'remove');
+        for (var i = 0; i <$scope.orderList.length; i++) {
+            var contact = $scope.orderList[i];
+            updateSelected(action, contact.notificationNumber,contact);
+        }
+    };
 
-    // $scope.isSelected = function (id) {
-    //     return $scope.selected.indexOf(id) >= 0;
+
+
+    // //checkbox 多选操作数据绑定
+    // var updateSelected = function (action, id, name) {
+    //     if (action == 'add') {
+    //         $scope.selected.push(id);
+    //         $scope.selectedTags.push(name);
+    //         $scope.num = $scope.num + 1;
+    //         //转换可解析的对象
+    //         $scope.result = [
+    //             angular.fromJson(name)
+    //         ];
+    //         //获取分数
+    //         var score = $scope.result[0].violationPoints;
+    //         var money = $scope.result[0].fine;
+    //         $scope.score = parseInt($scope.score) + parseInt(score);
+    //         $scope.money = parseInt($scope.money) + parseInt(12) + parseInt(money);
+    //     } else if (action == 'remove') {
+    //         var idx = $scope.selected.indexOf(id);
+    //         $scope.selected.splice(idx, 1);
+    //         $scope.selectedTags.splice(idx, 1);
+    //         alert($scope.selectedTags);
+    //         $scope.num = $scope.num - 1;
+    //         $scope.result = [
+    //             angular.fromJson(name)
+    //         ];
+    //         var score = $scope.result[0].violationPoints;
+    //         var money = $scope.result[0].fine;
+    //         $scope.score = parseInt($scope.score) - parseInt(score);
+    //         $scope.money = parseInt($scope.money) - parseInt(12) - parseInt(money);
+    //     }
+    //
+    // }
+    //
+    // $scope.updateSelection = function ($event, id) {
+    //     var checkbox = $event.target;
+    //     var action = (checkbox.checked ? 'add' : 'remove');
+    //     alert(id);
+    //     updateSelected(action, id, checkbox.name);
+    // }
+    //
+    // // $scope.isSelected = function (id) {
+    // //     return $scope.selected.indexOf(id) >= 0;
+    // // }
+    //
+    // //checkbox 全选,取消数据绑定
+    //
+    // var updateSelectedAll = function (action, name) {
+    //     $scope.score = 0;
+    //     $scope.money = 0;
+    //     //全选
+    //     if (action == 'add') {
+    //
+    //         $scope.selectedTags.push(name);
+    //         var dataObj = eval("(" + name + ")");
+    //         $scope.num = dataObj.length;
+    //
+    //         $.each(dataObj, function (i, order) {
+    //             $scope.score = parseInt($scope.score) + parseInt(order.violationPoints);
+    //             $scope.money = parseInt($scope.money) + parseInt(12) + parseInt(order.fine);
+    //         });
+    //         $(':checkbox').prop('checked', true);
+    //     }
+    //     //取消全选
+    //     if (action == 'remove') {
+    //         $(':checkbox').attr('checked', false);
+    //         $scope.num = 0;
+    //         $scope.score = 0;
+    //         $scope.money = 0;
+    //     }
     // }
 
-    //checkbox 全选,取消数据绑定
-
-    var updateSelectedAll = function (action, name) {
-        $scope.score = 0;
-        $scope.money = 0;
-        //全选
-        if (action == 'add') {
-
-            $scope.selectedTags.push(name);
-            var dataObj = eval("(" + name + ")");
-            $scope.num = dataObj.length;
-
-            $.each(dataObj, function (i, order) {
-                $scope.score = parseInt($scope.score) + parseInt(order.violationPoints);
-                $scope.money = parseInt($scope.money) + parseInt(12) + parseInt(order.fine);
-            });
-            $(':checkbox').prop('checked', true);
-        }
-        //取消全选
-        if (action == 'remove') {
-            $(':checkbox').attr('checked', false);
-            $scope.num = 0;
-            $scope.score = 0;
-            $scope.money = 0;
-        }
-    }
-    $scope.updateSelectionAll = function ($event) {
-        var checkbox = $event.target;
-        var action = (checkbox.checked ? 'add' : 'remove');
-        updateSelectedAll(action, checkbox.name);
-    }
 
     $scope.saveOrder = function () {
-        var oderInfo =  $scope.selectedTags ;
 
+        var oderInfo=angular.toJson($scope.selectedTags);
         alert(oderInfo);
-        $http.get(addOrderInfo, {params: {"orderInfo": oderInfo}}).success(function (response) {
+
+        $http({
+            method: "POST",
+            url: addOrderInfo,
+            data: {
+                orderInfo: oderInfo
+            },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            transformRequest: function(obj) {
+                var str = [];
+                for (var s in obj) {
+                    str.push(encodeURIComponent(s) + "=" + encodeURIComponent(obj[s]));
+                }
+                return str.join("&");
+            }
+            }).success(function (response) {
             var code = response.code;
             var msg = response.msg;
             if (code == "0") {
@@ -139,5 +200,6 @@ bookstoreContrs.controller('orderCtrl', function ($scope, $http, $state, $stateP
                 alert(msg);
             }
         });
+
     }
 });
