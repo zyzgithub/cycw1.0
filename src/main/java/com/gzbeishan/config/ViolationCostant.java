@@ -9,6 +9,11 @@ public class ViolationCostant {
      */
     public static final String VIOLATION_URL="violation/";
 
+    public static final String MAIN_URL="main/";
+
     public static final String SEARCH_URL=VIOLATION_URL+"getViolationListByOffSite";
     public static final String SAVE_SITE_VIOLATION=VIOLATION_URL+"saveSiteViolation";
+
+    public static  final String MAIN_CALLBACK_URL=MAIN_URL+"authorization";
+
 }

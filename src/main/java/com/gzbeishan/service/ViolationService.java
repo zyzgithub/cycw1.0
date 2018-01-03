@@ -52,4 +52,12 @@ public interface ViolationService {
     BasicResult ass(String numer);
 
     BasicResult findAll();
+
+    /**
+     * 获取用户openId
+     * @param code
+     * @param state
+     * @return
+     */
+    String getOpenId(String code, String state);
 }

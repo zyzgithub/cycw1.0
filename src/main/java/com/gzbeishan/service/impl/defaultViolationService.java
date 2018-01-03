@@ -4,6 +4,7 @@ package com.gzbeishan.service.impl;
 import com.alibaba.fastjson.JSONObject;
 
 import com.gzbeishan.config.BasicResult;
+import com.gzbeishan.config.WeChatConfig;
 import com.gzbeishan.po.TestSa;
 import com.gzbeishan.repository.TestJpa;
 import com.gzbeishan.repository.ViolationOffSiteJpaRepository;
@@ -12,6 +13,7 @@ import com.gzbeishan.org.tempuri.IVehicleGZQueryServiceProxy;
 import com.gzbeishan.po.ViolationOffSiteEntity;
 import com.gzbeishan.po.ViolationSiteEntity;
 import com.gzbeishan.service.ViolationService;
+import com.gzbeishan.util.HttpUtil;
 import com.gzbeishan.vo.CarDO;
 import com.gzbeishan.vo.ViolationDO;
 import com.gzbeishan.vo.ViolationWSResp;
@@ -38,6 +40,9 @@ public class defaultViolationService implements ViolationService {
 
     @Autowired
     private TestJpa testJpa;
+
+    @Autowired
+    private WeChatConfig weChatConfig;
 //
 //    @Autowired
 //    private ViolationSiteJpaRepository cheyouViolationSiteJpa;
@@ -83,6 +88,24 @@ public class defaultViolationService implements ViolationService {
         return BasicResult.createSuccessResultWithDatas("保存现场违章订单成功",lst);
     }
 
+    @Override
+    public String getOpenId(String code, String state) {
+        String authTokenUrl = weChatConfig.getAccessTokenUrl(code);
+        JSONObject jsonObject = HttpUtil.post(authTokenUrl, new JSONObject());
+        String openId = null;
+        if (jsonObject != null) {
+            if (null == jsonObject.get("errcode")) {
+                {
+                    openId = jsonObject.getString("openid");
+                }
+
+//            } else {
+//                throw new PosIllegalArgumentException(jsonObject.toJSONString());
+//            }
+            }
+        }
+        return openId;
+    }
     @Override
     public BasicResult addOrderBySite(List<ViolationSiteEntity> violationSiteEntity) {
 

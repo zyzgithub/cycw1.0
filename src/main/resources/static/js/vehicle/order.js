@@ -92,12 +92,23 @@ bookstoreContrs.controller('orderCtrl', function ($scope, $http, $state, $stateP
     };
     //全选操作
     $scope.selectAll = function ($event) {
+        $scope.selected = []; //定义的id
+        $scope.selectedTags = []; //定义的内容
+        $scope.num = 0; //选中项
+        $scope.score = 0; //当前要扣的分数
+        $scope.money = 0; //当前要缴纳的金额
         var checkbox = $event.target;
         var action = (checkbox.checked ? 'add' : 'remove');
-        for (var i = 0; i <$scope.orderList.length; i++) {
-            var contact = $scope.orderList[i];
-            updateSelected(action, contact.notificationNumber,contact);
+
+        if(action=='add'){
+
+            for (var i = 0; i <$scope.orderList.length; i++) {
+                var contact = $scope.orderList[i];
+                updateSelected(action, contact.notificationNumber,contact);
+            }
         }
+
+
     };
 
 
